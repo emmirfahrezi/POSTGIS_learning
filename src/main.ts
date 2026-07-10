@@ -1,9 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
-import { TransformInterceptor } from './common/interceptors/transform.interceptor';
-import { ZodValidationPipe } from 'nestjs-zod';
+
 
 /**
  * Fungsi utama untuk menjalankan (bootstrap) aplikasi NestJS.
@@ -16,14 +14,8 @@ async function bootstrap() {
   // Set prefix '/api' untuk semua route
   app.setGlobalPrefix('api');
 
-  // Mengaktifkan interceptor format response secara global
-  app.useGlobalInterceptors(new TransformInterceptor());
-
-  // Mengaktifkan filter error global (menangkap error prisma, zod, dll)
-  app.useGlobalFilters(new GlobalExceptionFilter());
-
-  // Mengaktifkan Zod Validation Pipe secara global
-  app.useGlobalPipes(new ZodValidationPipe());
+  // Catatan: Interceptor, Filter, dan Zod Pipe sekarang diurus oleh CommonModule
+  // agar file main.ts ini menjadi sangat rapi dan bersih.
 
   const config = new DocumentBuilder()
     .setTitle('StrukturNest API')
