@@ -1,0 +1,1 @@
+DROP VIEW IF EXISTS "Location_View_Debug"; CREATE OR REPLACE VIEW "Location_View_Debug" AS SELECT id, "userId", name, address, geom, ST_AsText(geom) AS geom_wkt, "createdAt", "updatedAt" FROM "Location";  
